@@ -1,8 +1,9 @@
 {
   "name": "gmove",
   "version": "1.0.0",
-  "description": "A simple javascript animation library",
-  "main": "index.js",
+  "description": "GMove is a simple javascript animation library.",
+  "main": "./src/GMove.js",
+  "module": "./src/index.js",
   "scripts": {
     "test": "jest"
   },

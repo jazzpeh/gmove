@@ -1,0 +1,23 @@
+{
+  "name": "gmove",
+  "version": "1.0.0",
+  "description": "A simple javascript animation library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazzpeh/gmove.git"
+  },
+  "author": "Jazz Peh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jazzpeh/gmove/issues"
+  },
+  "homepage": "https://github.com/jazzpeh/gmove#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

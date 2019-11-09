@@ -1,3 +1,3 @@
-import GMove from './GMove';
+import GMove from './gmove';
 
 export {GMove};

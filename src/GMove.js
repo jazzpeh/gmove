@@ -1,4 +1,4 @@
-import {EasingTypes, Easings} from './Easings';
+import {EasingTypes, Easings} from './easings';
 
 /**
  * Use the GMove library to transit HTMLElements with various animation.

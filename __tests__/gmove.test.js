@@ -39,5 +39,20 @@ describe('GMove', () => {
 
       jest.runAllTimers();
     });
+
+    it('should increment delta and call `step` callback.', (done) => {
+      let prevDelta = 0;
+
+      GMove.execute_({
+        ...opts,
+        step: (delta) => {
+          expect(delta).toBeGreaterThan(prevDelta);
+          prevDelta = delta;
+          if (delta === 1) done();
+        },
+      });
+
+      jest.runAllTimers();
+    });
   });
 });

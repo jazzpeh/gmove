@@ -1,2 +1,2 @@
-# gmove
-A simple javascript animation library
+# GMove
+GMove is a simple javascript animation library.

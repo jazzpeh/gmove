@@ -62,33 +62,38 @@ const to = (selector, options) => {
   const {x, y, opacity} = options;
   const {opacity: o} = window.getComputedStyle(element);
 
-  const props = {x, y, opacity};
+  const target = {
+    transform: {x, y},
+    opacity,
+  };
+
   const computed = {
-    ...getTranslate(element),
+    transform: getTranslate(element),
     opacity: o,
   };
 
   execute_({
     ...opts,
     step: (delta) => {
-      for (const prop in props) {
-        if (isNullOrUndefined(props[prop])) continue;
-        transition[prop](element, props[prop], computed[prop], delta);
+      for (const prop in target) {
+        if (isNullOrUndefined(target[prop])) continue;
+        transition_[prop](element, target[prop], computed[prop], delta);
       }
     },
   });
 };
 
 /**
- * Transition controller which contains different algorithm to run
- * the transition
+ * Transition controller which contains different
+ * algorithm to run the transition
+ * @private
  */
-const transition = {
-  x: (element, x, computed, delta) => {
-    console.log(x, computed, delta);
-  },
-  y: (element, y, computed, delta) => {
-    console.log(y, computed, delta);
+const transition_ = {
+  transform: (element, target, computed, delta) => {
+    const x = normalize_(target.x, computed.x, delta);
+    const y = normalize_(target.y, computed.y, delta);
+    const transform = `translate(${x}px, ${y}px)`;
+    element.style.transform = transform;
   },
   /**
    * Fade in/out
@@ -98,11 +103,39 @@ const transition = {
    * @param {Number} delta
    */
   opacity: (element, opacity, computed, delta) => {
-    const isFadingIn = opacity > computed;
-    element.style.opacity = isFadingIn ? delta : computed - delta;
+    element.style.opacity = opacity > computed ? delta : computed - delta;
   },
 };
 
+/**
+ * Normalize for accurate values
+ * @private
+ *
+ * @param {String|Number} target
+ * @param {Number} computed
+ * @param {Number} delta
+ * @return {Number}
+ */
+const normalize_ = (target, computed, delta) => {
+  let value = computed || 0;
+
+  if (!target) return value;
+
+  if (!isNaN(target)) {
+    value = (target - computed) * delta;
+    return value;
+  }
+
+  const type = target.indexOf('%') > -1 ? '%' : 'px';
+  const add = target.indexOf('+') > -1;
+  const raw = target.replace(/\D+/g, '');
+  const moveBy = type === 'px' ?
+    raw * delta :
+    (raw / 100 * computed) * delta;
+
+  value = add ? computed + moveBy : computed - moveBy;
+  return value;
+};
 
 /**
  * Use the GMove library to transit elements with various animation.

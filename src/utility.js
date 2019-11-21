@@ -1,7 +1,17 @@
+/**
+ * Verify if value is null or undefined
+ * @param {any} value
+ * @return {bool}
+ */
 export const isNullOrUndefined = (value) => {
   return value === null || value === undefined;
 };
 
+/**
+ * Get element's computed translateX and translateY values
+ * @param {HTMLElement} element
+ * @return {Object}
+ */
 export const getTranslate = (element) => {
   const trans = {
     x: 0,

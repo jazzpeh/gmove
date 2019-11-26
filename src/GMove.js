@@ -122,7 +122,7 @@ const normalize_ = (target, computed, delta) => {
   if (!target) return value;
 
   if (!isNaN(target)) {
-    value = (target - computed) * delta;
+    value = computed + (target - computed) * delta;
     return value;
   }
 
@@ -141,6 +141,6 @@ const normalize_ = (target, computed, delta) => {
  * Use the GMove library to transit elements with various animation.
  * Check out the docs for more information.
  */
-const GMove = {execute_, to};
+const GMove = {execute_, normalize_, to};
 
 export {GMove as default};

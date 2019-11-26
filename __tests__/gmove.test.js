@@ -82,6 +82,12 @@ describe('GMove', () => {
 
       const result2 = GMove.normalize_('-100px', 50, 1);
       expect(result2).toEqual(-50);
+
+      const result3 = GMove.normalize_('+50%', 50, 1);
+      expect(result3).toEqual(75);
+
+      const result4 = GMove.normalize_('-100%', 50, 1);
+      expect(result4).toEqual(0);
     });
   });
 });

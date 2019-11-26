@@ -55,4 +55,39 @@ describe('GMove', () => {
       jest.runAllTimers();
     });
   });
+
+  describe('normalize_', () => {
+    it('should return `computed` if target is not specified and computed is provided', () => {
+      const computed = 10;
+      const result = GMove.normalize_(null, computed, 1);
+      expect(result).toEqual(computed);
+    });
+
+    it('should return `0` if target and computed are not specified', () => {
+      const result = GMove.normalize_(null, null, 1);
+      expect(result).toEqual(0);
+    });
+
+    it('should calculate and return normalized value based on delta if target is a number', () => {
+      const result = GMove.normalize_(100, 50, 1);
+      expect(result).toEqual(100);
+
+      const result2 = GMove.normalize_(-200, 0, 1);
+      expect(result2).toEqual(-200);
+    });
+
+    it('should calculate and return normalized value based on delta if target is a increment/decrement value', () => {
+      const result = GMove.normalize_('+100px', 50, 1);
+      expect(result).toEqual(150);
+
+      const result2 = GMove.normalize_('-100px', 50, 1);
+      expect(result2).toEqual(-50);
+
+      const result3 = GMove.normalize_('+50%', 50, 1);
+      expect(result3).toEqual(75);
+
+      const result4 = GMove.normalize_('-100%', 50, 1);
+      expect(result4).toEqual(0);
+    });
+  });
 });

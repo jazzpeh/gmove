@@ -42,3 +42,8 @@ GMove.to('#s8', {
   duration: 4000,
   x: '+50%',
 });
+
+GMove.to('#s9', {
+  duration: 4000,
+  x: 100,
+});
